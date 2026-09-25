@@ -2,14 +2,20 @@
 @import "tailwindcss";
 
 @theme inline {
-  --font-sans: "Avenir Next", "Avenir", sans-serif;
+  --font-sans: "avenir-lt-pro", "Avenir Next", "Avenir", sans-serif;
   --font-display: "ellery", "Baskerville", serif;
+  --color-portfolio-deep: #221514;
+  --color-portfolio-panel: #5c4b48;
+  --color-portfolio-paper: #fdfcfb;
+  --color-portfolio-title: #413931;
+  --color-portfolio-copy: #413931;
+  --color-portfolio-muted: #403a37;
 }
 
 html,
 body {
   min-height: 100%;
-  background: #221514;
+  background: var(--color-portfolio-paper);
 }
 
 button,

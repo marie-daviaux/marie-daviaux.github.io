@@ -35,13 +35,13 @@ function ArrowButton({
       <span className="hidden text-xs tracking-wide whitespace-nowrap sm:block lg:text-sm xl:text-base">
         {continueLabel}
       </span>
-      <span className="grid size-11 place-items-center rounded-full border border-white transition-transform duration-500 group-hover:scale-110 md:size-13">
+      <span className="grid size-12 place-items-center rounded-full border border-white transition-transform duration-500 group-hover:scale-110">
         <Image
           src="/arrow-right.svg"
           alt=""
           width={29}
           height={20}
-          className="h-auto w-5 transition-transform duration-500 group-hover:translate-x-0.5 md:w-7"
+          className="h-auto w-7 transition-transform duration-500 group-hover:translate-x-0.5"
         />
       </span>
     </>
@@ -96,7 +96,7 @@ export function PortfolioIntro({ initialMenuOpen = false }: { initialMenuOpen?: 
   }, []);
 
   return (
-    <main className="relative isolate min-h-svh overflow-hidden bg-[#221514] text-white">
+    <main className="relative isolate min-h-svh overflow-hidden bg-portfolio-deep text-white">
       <div
         className={`absolute inset-0 transition-all duration-1000 ease-out ${menuOpen ? "scale-105 opacity-0" : "scale-100 opacity-100"}`}
       >
@@ -108,7 +108,7 @@ export function PortfolioIntro({ initialMenuOpen = false }: { initialMenuOpen?: 
           sizes="100vw"
           className="object-cover object-center"
         />
-        <div className="absolute inset-0 bg-[#221514]/5" />
+        <div className="absolute inset-0 bg-portfolio-deep/5" />
       </div>
 
       <div
@@ -123,7 +123,7 @@ export function PortfolioIntro({ initialMenuOpen = false }: { initialMenuOpen?: 
           sizes="100vw"
           className="object-cover object-center"
         />
-        <div className="absolute inset-0 bg-linear-to-r from-[#221514]/75 via-[#221514]/30 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-r from-portfolio-deep/75 via-portfolio-deep/30 to-transparent" />
         <div className="absolute inset-0 bg-black/10" />
       </div>
 
@@ -145,7 +145,7 @@ export function PortfolioIntro({ initialMenuOpen = false }: { initialMenuOpen?: 
         id="portfolio-menu"
         aria-label={messages.menu.title}
         aria-hidden={!menuOpen}
-        className={`absolute inset-y-0 left-0 w-11/12 max-w-xl overflow-hidden bg-[#5c4b48]/80 backdrop-blur-xs transition-transform duration-700 ease-in-out md:w-3/10 md:min-w-md md:max-w-none ${menuOpen ? "translate-x-0" : "pointer-events-none -translate-x-full"}`}
+        className={`absolute inset-y-0 left-0 w-11/12 max-w-xl overflow-hidden bg-portfolio-panel/80 backdrop-blur-xs transition-transform duration-700 ease-in-out md:w-3/10 md:min-w-md md:max-w-none ${menuOpen ? "translate-x-0" : "pointer-events-none -translate-x-full"}`}
       >
         <div className="pointer-events-none absolute top-16 -left-16 size-96 rounded-full bg-white/15 blur-3xl" />
         <div className="pointer-events-none absolute bottom-16 left-12 h-36 w-64 rounded-full border-8 border-white/10 blur-lg" />

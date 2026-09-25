@@ -33,6 +33,69 @@
   "about": {
     "title": "About me",
     "text": "Rooted in the world of champagne, I work at the intersection of communication, creation and marketing, with an approach that is both strategic and operational. I enjoy bringing meaning to projects and creating memorable experiences. Today, I want to put this vision at the service of the wine industry by developing useful, tangible projects that meet its current expectations.",
-    "signature": "MARIE DAVIAUX'S PORTFOLIO // ABOUT ME"
+    "signature": "MARIE DAVIAUX'S PORTFOLIO // ABOUT ME",
+    "experiences": {
+      "title": "Experience",
+      "items": [
+        {
+          "role": "HEAD OF\nCOMMUNICATION\n& MARKETING",
+          "meta": "Since May 2023 | CP Création | Épernay",
+          "description": "Management of communication and launches through an effective multichannel strategy that doubled the Instagram community in one year. Organisation of events and trade shows, team management and showroom operations."
+        },
+        {
+          "role": "HEAD OF\nCOMMUNICATION\n& MARKETING",
+          "meta": "12/2020 to 05/2023 | Agence KOUL | Reims",
+          "description": "Content strategy development to increase awareness and generate leads, including SEO-focused copywriting to improve the organic search presence of several websites."
+        },
+        {
+          "role": "ENTREPRENEUR\nILLUSTRATOR",
+          "meta": "02/2020 to 05/2023 | @jesuislameyer",
+          "description": "Design and production of bespoke illustrations for B2C clients, with a tailored creative approach adapted to each client’s expectations and visual world."
+        },
+        {
+          "role": "COMMUNICATION\n& MARKETING\nMANAGER",
+          "meta": "09/2019 - 07/2020 | VS | Châlons",
+          "description": "Social media strategy management, creation of SEO-optimised editorial content and management of marketing workflows through HubSpot."
+        }
+      ],
+      "olderItems": [
+        {
+          "role": "COMMUNICATION\nASSISTANT",
+          "meta": "06/2017 - 07/2018 | Champagne Le Brun de Neuville | Bethon",
+          "description": "Design of visual materials showcasing the House’s wines and creation of a refined atmosphere in the tasting room, consistent with the overall tasting experience."
+        },
+        {
+          "role": "B2B EVENTS\nASSISTANT",
+          "meta": "06/2016 - 08/2016 | Business Village | Louan",
+          "description": "Welcoming international participants and organising networking moments. Management of logistics and operational requirements."
+        }
+      ],
+      "skills": [
+        {
+          "title": "GRAPHIC DESIGN",
+          "description": "Strong command of the Adobe suite (InDesign, Adobe XD, Photoshop, Illustrator, Premiere Pro and After Effects)."
+        },
+        {
+          "title": "MULTICHANNEL STRATEGY",
+          "description": "Launch of 360° campaigns through a multichannel strategy spanning social media, print, press and more."
+        },
+        {
+          "title": "CONTENT CREATION",
+          "description": "Creation and structuring of editorial calendars aligned with the guidelines of each campaign or brand."
+        },
+        {
+          "title": "SEO/SEA",
+          "description": "Writing blog articles to organically grow website traffic. Creation of Google and Meta campaigns."
+        },
+        {
+          "title": "MASTER’S DEGREE",
+          "description": "Packaging diploma - IUT Reims\nProfessional Design degree - IUT Reims\nECS Master’s - MediaSchool Reims"
+        },
+        {
+          "title": "ENGLISH",
+          "description": "Intermediate level"
+        }
+      ]
+    }
   }
 }

@@ -33,6 +33,69 @@
   "about": {
     "title": "À propos de moi",
     "text": "Ancrée dans l’univers du champagne, j’évolue à la croisée de la communication, de la création et du marketing, avec une approche à la fois stratégique et opérationnelle. J’aime donner du sens aux projets et créer des expériences qui marquent. Aujourd’hui, je souhaite mettre cette vision au service d’acteurs du vin en développant des projets utiles, concrets et en phase avec les attentes actuelles de la filière.",
-    "signature": "PORTFOLIO MARIE DAVIAUX // À PROPOS DE MOI"
+    "signature": "PORTFOLIO MARIE DAVIAUX // À PROPOS DE MOI",
+    "experiences": {
+      "title": "Expériences",
+      "items": [
+        {
+          "role": "RESPONSABLE\nCOMMUNICATION\n& MARKETING",
+          "meta": "Depuis mai 2023 | CP Création | Épernay",
+          "description": "Pilotage de la communication et des lancements avec une stratégie multicanale efficace, ayant doublé la communauté Instagram en une année. Organisation d’événements et de salons, management d’une équipe et gestion du showroom."
+        },
+        {
+          "role": "RESPONSABLE\nCOMMUNICATION\n& MARKETING",
+          "meta": "12/2020 à 05/2023 | Agence KOUL | Reims",
+          "description": "Définition de stratégies de contenus pour développer la notoriété et générer des leads, avec rédaction SEO optimisée pour améliorer le référencement naturel de plusieurs sites."
+        },
+        {
+          "role": "ENTREPRENEUSE\nILLUSTRATRICE",
+          "meta": "02/2020 à 05/2023 | @jesuislameyer",
+          "description": "Conception et réalisation d’illustrations personnalisées pour une clientèle BtoC, avec une approche créative sur mesure adaptée aux attentes et aux univers de chaque client."
+        },
+        {
+          "role": "CHARGÉE\nCOMMUNICATION\n& MARKETING",
+          "meta": "09/2019 - 07/2020 | VS | Châlons",
+          "description": "Pilotage de la stratégie social media, création de contenus éditoriaux optimisés SEO et gestion des workflows marketing via HubSpot."
+        }
+      ],
+      "olderItems": [
+        {
+          "role": "ASSISTANTE\nCOMMUNICATION",
+          "meta": "06/2017 - 07/2018 | Champagne Le Brun de Neuville | Bethon",
+          "description": "Conception de supports visuels pour valoriser les vins de la Maison et création d’une ambiance soignée au caveau, en cohérence avec l’expérience de dégustation."
+        },
+        {
+          "role": "EMPLOYÉE\nÉVÉNEMENTIEL B2B",
+          "meta": "06/2016 - 08/2016 | Business Village | Louan",
+          "description": "Accueil de participants internationaux et organisation des temps de convivialité. Gestion de l’intendance et des aspects opérationnels."
+        }
+      ],
+      "skills": [
+        {
+          "title": "DESIGN GRAPHIQUE",
+          "description": "Très bonnes connaissances de la suite Adobe (Indesign, Adobe XD, PhotoShop, Illustrator, Premier Pro, After Effect)."
+        },
+        {
+          "title": "STRATÉGIE MULTICANAL",
+          "description": "Lancement de campagnes 360° avec une stratégie multicanal (réseaux sociaux, print, presse, ...)."
+        },
+        {
+          "title": "CRÉATION DE CONTENUS",
+          "description": "Création et structuration de plannings éditoriaux en cohérence avec les lignes directrices de chaque campagne ou marque."
+        },
+        {
+          "title": "SEO/SEA",
+          "description": "Rédaction d’articles de blog pour booster naturellement des sites internet. Création de campagnes Google et Meta."
+        },
+        {
+          "title": "BAC +5",
+          "description": "DUT Packaging - IUT Reims\nLicence Pro Design - IUT Reims\nMaster ECS - MediaSchool Reims"
+        },
+        {
+          "title": "ANGLAIS",
+          "description": "Niveau intermédiaire"
+        }
+      ]
+    }
   }
 }
