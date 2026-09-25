@@ -1,0 +1,18 @@
+@import url("https://use.typekit.net/gac7fpx.css");
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: "Avenir Next", "Avenir", sans-serif;
+  --font-display: "ellery", "Baskerville", serif;
+}
+
+html,
+body {
+  min-height: 100%;
+  background: #221514;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}

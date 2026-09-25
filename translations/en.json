@@ -1,0 +1,38 @@
+{
+  "metadata": {
+    "title": "Marie Daviaux — Portfolio",
+    "description": "Marie Daviaux's graphic design and communication portfolio."
+  },
+  "brand": {
+    "name": "MARIE DAVIAUX",
+    "portfolio": "PORTFOLIO",
+    "signature": "MARIE DAVIAUX'S PORTFOLIO"
+  },
+  "navigation": {
+    "continue": "CONTINUE HERE",
+    "openMenu": "Open the contents",
+    "closeMenu": "Close the contents",
+    "goToAbout": "Go to the About me page",
+    "backToContents": "CONTENTS"
+  },
+  "menu": {
+    "title": "Contents",
+    "ariaLabel": "Portfolio sections",
+    "sectionPrefix": "Section",
+    "items": {
+      "about": "ABOUT ME",
+      "graphicDesign": "GRAPHIC DESIGN",
+      "communication": "COMMUNICATION\n& MARKETING",
+      "contact": "CONTACT"
+    }
+  },
+  "images": {
+    "menuBackgroundAlt": "Marie Daviaux's graphic design projects arranged on a wooden table",
+    "aboutPortraitAlt": "Marie Daviaux enjoying a glass of champagne"
+  },
+  "about": {
+    "title": "About me",
+    "text": "Rooted in the world of champagne, I work at the intersection of communication, creation and marketing, with an approach that is both strategic and operational. I enjoy bringing meaning to projects and creating memorable experiences. Today, I want to put this vision at the service of the wine industry by developing useful, tangible projects that meet its current expectations.",
+    "signature": "MARIE DAVIAUX'S PORTFOLIO // ABOUT ME"
+  }
+}
