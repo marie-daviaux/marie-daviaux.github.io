@@ -94,18 +94,18 @@ function syncMenuQuery(open: boolean) {
   window.history.replaceState(window.history.state, "", url);
 }
 
-export function PortfolioIntro({ initialMenuOpen = false }: { initialMenuOpen?: boolean }) {
+export function PortfolioIntro() {
   const { navigate } = useRouteTransition();
   const mainRef = useRef<HTMLElement>(null);
   const menuRef = useRef<HTMLElement>(null);
   const menuBackgroundRef = useRef<HTMLDivElement>(null);
   const navigationTimelineRef = useRef<gsap.core.Timeline | null>(null);
-  const [menuOpen, setMenuOpen] = useState(initialMenuOpen);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useGSAP(
     () => {
       if (
-        !initialMenuOpen ||
+        !menuOpen ||
         sessionStorage.getItem(MENU_RETURN_TRANSITION) !== "true"
       ) {
         return;
@@ -140,10 +140,14 @@ export function PortfolioIntro({ initialMenuOpen = false }: { initialMenuOpen?: 
 
       return () => navigationTimelineRef.current?.kill();
     },
-    { scope: mainRef },
+    { dependencies: [menuOpen], scope: mainRef, revertOnUpdate: true },
   );
 
   useEffect(() => {
+    const initialMenuFrame = window.requestAnimationFrame(() => {
+      setMenuOpen(new URLSearchParams(window.location.search).get("menu") === "open");
+    });
+
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         setMenuOpen(false);
@@ -151,7 +155,10 @@ export function PortfolioIntro({ initialMenuOpen = false }: { initialMenuOpen?: 
       }
     };
     window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
+    return () => {
+      window.cancelAnimationFrame(initialMenuFrame);
+      window.removeEventListener("keydown", onKeyDown);
+    };
   }, []);
 
   const navigateFromMenu = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
