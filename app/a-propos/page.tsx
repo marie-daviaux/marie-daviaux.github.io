@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
+import { AnimatedRouteLink } from "@/components/animated-route-link";
 import { CircleArrow } from "@/components/circle-arrow";
+import { ContentsLink } from "@/components/contents-link";
 import { getDictionary } from "@/i18n/dictionaries";
 
 const messages = getDictionary();
@@ -14,13 +15,12 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <main className="relative min-h-svh overflow-x-hidden bg-portfolio-paper text-portfolio-title">
-      <Link
-        href="/?menu=open"
+      <ContentsLink
         className="group absolute top-4 left-6 z-10 flex items-center gap-5 text-base text-portfolio-deep md:left-7 md:gap-6 md:text-lg"
       >
         <CircleArrow reverse />
         <span>{messages.navigation.backToContents}</span>
-      </Link>
+      </ContentsLink>
 
       <section className="mx-auto grid min-h-svh w-full max-w-7xl items-center gap-12 px-6 pt-28 pb-28 md:px-10 lg:grid-cols-12 lg:gap-16 lg:px-12 lg:pt-48 xl:px-0">
         <div className="relative mx-auto aspect-4/5 w-full max-w-[450px] overflow-hidden rounded-tr-[9rem] md:rounded-tr-[12rem] lg:col-span-5 lg:mx-0 lg:max-w-none lg:rounded-tr-[14rem]">
@@ -44,13 +44,14 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <Link
+          <AnimatedRouteLink
             href="/a-propos/experiences"
+            cover="paper"
             className="group mt-10 ml-auto flex w-fit items-center gap-5 text-sm text-portfolio-deep md:gap-6 md:text-base 2xl:fixed 2xl:top-1/2 2xl:right-16 2xl:mt-0 2xl:-translate-y-1/2"
           >
             <span>{messages.navigation.continue}</span>
             <CircleArrow />
-          </Link>
+          </AnimatedRouteLink>
         </div>
       </section>
 

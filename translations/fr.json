@@ -30,6 +30,111 @@
     "menuBackgroundAlt": "Créations graphiques de Marie Daviaux disposées sur une table en bois",
     "aboutPortraitAlt": "Marie Daviaux dégustant une coupe de champagne"
   },
+  "graphicDesign": {
+    "title": "Design graphique",
+    "projectNavigation": "Navigation entre les projets de design graphique",
+    "galleryLabel": "Galerie du projet",
+    "projects": [
+      {
+        "subtitle": "CHAMPAGNE HURET COLAS",
+        "paragraphs": [
+          "Création de l’identité visuelle du Champagne Huret Colas, pensée pour traduire le positionnement singulier de la Maison. Un travail centré sur la typographie, les lignes et l’équilibre des éléments, afin de construire un univers à la fois moderne, épuré et distinctif."
+        ],
+        "imageAlts": [
+          ["bouteille et étiquette noire", "bouteille avec étiquette blanche et bleue", "détail du millésime estampé"],
+          ["carte noire avec le monogramme", "bouteille présentée entre deux mains", "monogramme embossé"]
+        ]
+      },
+      {
+        "subtitle": "CHAMPAGNE EMELISE MENETRIER",
+        "paragraphs": [
+          "Création de l’univers visuel du Champagne Emelise Menetrier. Une direction artistique inspirée du Petit Prince qui raconte une histoire douce et poétique.",
+          "Le projet se prolonge en version animée, permettant de faire vivre cet univers en mouvement sur leur site internet."
+        ],
+        "imageAlts": [
+          ["étui de champagne illustré", "aquarelle originale", "second aperçu de l’étui illustré"],
+          ["détail de l’illustration", "gamme complète des étuis", "déclinaison sur le site internet"]
+        ]
+      },
+      {
+        "subtitle": "CRÉATION LIBRE",
+        "paragraphs": [
+          "Création d’une illustration originale pour habiller un sac à vin, pensé pour accompagner l’emport d’une bouteille, entamée ou non. Un univers graphique élégant et accessible, décliné sur différents supports. Signature “take happiness with you”... à utiliser de préférence hors des frontières françaises, afin de respecter la loi Évin."
+        ],
+        "imageAlts": [
+          ["illustration blanche sur fond bordeaux", "sac à bouteille porté", "croquis de l’illustration"],
+          ["illustration sur un sous-verre", "sac à bouteille garni de fleurs", "illustration imprimée sur un t-shirt"]
+        ]
+      },
+      {
+        "subtitle": "CHAMPAGNE VADIN PLATEAU",
+        "paragraphs": [
+          "Proposition d’une illustration pour l’étiquette du Coteaux Champenois Vadin Plateau, inspirée d’un univers botanique. Un travail de dessin minutieux pour traduire une viticulture raisonnée, attentive au vivant et inscrire la cuvée dans une approche à la fois sensible, naturelle et élégante."
+        ],
+        "imageAlts": [
+          ["dessin botanique sur tablette", "bouteille de Coteaux Champenois", "détail de l’illustration botanique"],
+          ["coiffe de la bouteille", "étiquette imprimée à plat", "détail de l’étiquette sur la bouteille"]
+        ]
+      },
+      {
+        "subtitle": "CHAMPAGNE ADAM MEREAUX",
+        "paragraphs": [
+          "Création de l’habillage de la cuvée 100% Chardonnay millésimé 2018 du Champagne Adam Mereaux. Un travail axé sur la matière, mêlant estampage et dorure à chaud microperforée pour obtenir un rendu texturé, presque cuir. Une approche pensée pour révéler la richesse du vin tout en affirmant une identité visuelle forte et tactile."
+        ],
+        "imageAlts": [
+          ["bouteille dans une mise en scène sombre", "étiquette vue en perspective", "rouleaux d’étiquettes"],
+          ["détail du monogramme et de l’étiquette", "bouteille portée dans la rue", "détail de la dorure microperforée"]
+        ]
+      },
+      {
+        "subtitle": "ILLUSTRATIONS AUTOUR DU CHAMPAGNE",
+        "paragraphs": [
+          "Création d’illustrations autour de l’univers du champagne, explorant différents styles et usages. Des projets menés parfois pour le plaisir, parfois pour des applications concrètes : supports de communication, couvertures, design de produits..."
+        ],
+        "imageAlts": [
+          ["illustration Faites pétiller la vie", "illustration Verre plein", "illustration Champagne"],
+          ["illustration Plus de bulles please", "illustration Toujours à flot", "composition de verres de champagne"]
+        ]
+      }
+    ]
+  },
+  "communication": {
+    "title": "Communication\n& Marketing",
+    "projectNavigation": "Navigation entre les projets de communication et marketing",
+    "galleryLabel": "Galerie du projet",
+    "projects": [
+      {
+        "subtitle": "LANCEMENT - COLLECTION VENDANGES 2025",
+        "paragraphs": [
+          "Pilotage du lancement de la collection Vendanges 2025, de la sélection des produits à la mise sur le marché. Déploiement des outils d’aide à la vente (site, brochure, échantillons, kit commercial, planning éditorial) et organisation d’un événement de lancement sous forme de défilé, avec vente et animations sur place. Retours très positifs des participants."
+        ],
+        "imageAlts": [
+          ["tote bag Love is in this verre", "gourdes pastel CP Création", "flasques noires sur une tranche de bois"],
+          ["bougie CP Création sur un socle en bois", "clés USB en liège", "sac à dos bleu Les Vendanges"]
+        ]
+      },
+      {
+        "subtitle": "LANCEMENT - COLLECTION DE NOËL 2025",
+        "paragraphs": [
+          "Lancement de la collection de Noël 2025, de la définition des produits à la direction artistique globale autour du concept « Et si le Père Noël était vigneron ». Implication de quelques clients dans le shooting. Création d’un événement dédié : un dîner dans un lieu entièrement scénarisé. Un projet pensé comme une expérience complète."
+        ],
+        "imageAlts": [
+          ["portrait de Noël avec une bouteille et un chien", "bougies de Noël empilées", "flasque noire présentée avec un gant blanc"],
+          ["coffret noir présenté sur un gant blanc", "portrait de Noël sur un tonneau", "bougie de Noël dévoilée sous une cloche"]
+        ]
+      },
+      {
+        "subtitle": "GESTION DES RÉSEAUX SOCIAUX",
+        "paragraphs": [
+          "Gestion des réseaux sociaux avec mise en avant des projets clients et des produits catalogue. Définition d’un planning éditorial (2 posts/semaine), accompagnement des shootings, maîtrise des prompts IA et retouche photo. En 1 an, la communauté Instagram de l’agence a doublé de façon organique."
+        ],
+        "imageAlts": [
+          ["bouteille Goutte de Simmonet tenue entre deux mains", "bouteille Vadin Plateau dans un décor minéral", "coffret de champagne et verres"],
+          ["bouteille de Champagne Moineaux mise en scène avec une montre", "série de petits pots noirs et dorés", "bouteille Cœur d’Oger dans un décor blanc"]
+        ]
+      }
+    ]
+  },
   "about": {
     "title": "À propos de moi",
     "text": "Ancrée dans l’univers du champagne, j’évolue à la croisée de la communication, de la création et du marketing, avec une approche à la fois stratégique et opérationnelle. J’aime donner du sens aux projets et créer des expériences qui marquent. Aujourd’hui, je souhaite mettre cette vision au service d’acteurs du vin en développant des projets utiles, concrets et en phase avec les attentes actuelles de la filière.",
@@ -97,5 +202,10 @@
         }
       ]
     }
+  },
+  "contact": {
+    "title": "Contact",
+    "thankYou": "Merci",
+    "email": "marie.meyer1801@gmail.com"
   }
 }

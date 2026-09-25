@@ -2,16 +2,22 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, type MouseEvent } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 import { getDictionary } from "@/i18n/dictionaries";
+import { useRouteTransition } from "@/components/route-transition-provider";
+import { MENU_RETURN_TRANSITION } from "@/lib/navigation-transitions";
 
 const messages = getDictionary();
 
+gsap.registerPlugin(useGSAP);
+
 const sections = [
   { label: messages.menu.items.about, href: "/a-propos" },
-  { label: messages.menu.items.graphicDesign, href: "#design-graphique" },
-  { label: messages.menu.items.communication, href: "#communication" },
-  { label: messages.menu.items.contact, href: "#contact" },
+  { label: messages.menu.items.graphicDesign, href: "/design-graphique/huret-colas" },
+  { label: messages.menu.items.communication, href: "/communication/vendanges-2025" },
+  { label: messages.menu.items.contact, href: "/contact" },
 ] as const;
 
 function ArrowButton({
@@ -20,12 +26,14 @@ function ArrowButton({
   continueLabel,
   openLabel,
   goToAboutLabel,
+  onNavigate,
 }: {
   open: boolean;
   onClick: () => void;
   continueLabel: string;
   openLabel: string;
   goToAboutLabel: string;
+  onNavigate: (event: MouseEvent<HTMLAnchorElement>) => void;
 }) {
   const className =
     "group flex cursor-pointer items-center gap-5 text-white focus-visible:outline-2 focus-visible:outline-offset-8 focus-visible:outline-white md:gap-7";
@@ -49,7 +57,12 @@ function ArrowButton({
 
   if (open) {
     return (
-      <Link href="/a-propos" aria-label={goToAboutLabel} className={className}>
+      <Link
+        href="/a-propos"
+        onClick={onNavigate}
+        aria-label={goToAboutLabel}
+        className={className}
+      >
         {content}
       </Link>
     );
@@ -82,7 +95,53 @@ function syncMenuQuery(open: boolean) {
 }
 
 export function PortfolioIntro({ initialMenuOpen = false }: { initialMenuOpen?: boolean }) {
+  const { navigate } = useRouteTransition();
+  const mainRef = useRef<HTMLElement>(null);
+  const menuRef = useRef<HTMLElement>(null);
+  const menuBackgroundRef = useRef<HTMLDivElement>(null);
+  const navigationTimelineRef = useRef<gsap.core.Timeline | null>(null);
   const [menuOpen, setMenuOpen] = useState(initialMenuOpen);
+
+  useGSAP(
+    () => {
+      if (
+        !initialMenuOpen ||
+        sessionStorage.getItem(MENU_RETURN_TRANSITION) !== "true"
+      ) {
+        return;
+      }
+
+      sessionStorage.removeItem(MENU_RETURN_TRANSITION);
+
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        return;
+      }
+
+      navigationTimelineRef.current = gsap
+        .timeline({ defaults: { ease: "power3.out" } })
+        .fromTo(
+          menuBackgroundRef.current,
+          { autoAlpha: 0, scale: 1.04 },
+          { autoAlpha: 1, scale: 1, duration: 1.05 },
+          0,
+        )
+        .fromTo(
+          menuRef.current,
+          { xPercent: -100 },
+          { xPercent: 0, duration: 0.92 },
+          0.14,
+        )
+        .fromTo(
+          mainRef.current?.querySelectorAll("[data-menu-chrome]") ?? [],
+          { autoAlpha: 0 },
+          { autoAlpha: 1, duration: 0.72 },
+          0.28,
+        );
+
+      return () => navigationTimelineRef.current?.kill();
+    },
+    { scope: mainRef },
+  );
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -95,8 +154,34 @@ export function PortfolioIntro({ initialMenuOpen = false }: { initialMenuOpen?: 
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
+  const navigateFromMenu = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith("#")) {
+      return;
+    }
+
+    event.preventDefault();
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      navigate(href, "menu");
+      return;
+    }
+
+    navigationTimelineRef.current?.kill();
+    const menuChrome = mainRef.current?.querySelectorAll("[data-menu-chrome]") ?? [];
+    navigationTimelineRef.current = gsap
+      .timeline({
+        defaults: { ease: "power3.inOut" },
+        onComplete: () => navigate(href, "menu"),
+      })
+      .to(menuRef.current, { xPercent: -100, duration: 0.68 }, 0)
+      .to(menuChrome, { autoAlpha: 0, duration: 0.4 }, 0);
+  };
+
   return (
-    <main className="relative isolate min-h-svh overflow-hidden bg-portfolio-deep text-white">
+    <main
+      ref={mainRef}
+      className="relative isolate min-h-svh overflow-hidden bg-portfolio-deep text-white"
+    >
       <div
         className={`absolute inset-0 transition-all duration-1000 ease-out ${menuOpen ? "scale-105 opacity-0" : "scale-100 opacity-100"}`}
       >
@@ -112,6 +197,7 @@ export function PortfolioIntro({ initialMenuOpen = false }: { initialMenuOpen?: 
       </div>
 
       <div
+        ref={menuBackgroundRef}
         className={`absolute inset-0 transition-all duration-1000 ease-out ${menuOpen ? "scale-100 opacity-100" : "pointer-events-none scale-105 opacity-0"}`}
         aria-hidden={!menuOpen}
       >
@@ -142,6 +228,7 @@ export function PortfolioIntro({ initialMenuOpen = false }: { initialMenuOpen?: 
       </section>
 
       <aside
+        ref={menuRef}
         id="portfolio-menu"
         aria-label={messages.menu.title}
         aria-hidden={!menuOpen}
@@ -162,6 +249,7 @@ export function PortfolioIntro({ initialMenuOpen = false }: { initialMenuOpen?: 
                   <span className="absolute top-1/2 -left-1.5 size-3 -translate-y-1/2 rounded-full bg-white" />
                   <a
                     href={section.href}
+                    onClick={(event) => navigateFromMenu(event, section.href)}
                     tabIndex={menuOpen ? 0 : -1}
                     className="relative block w-fit pb-2 text-base leading-snug whitespace-pre-line after:absolute after:inset-x-0 after:bottom-0 after:h-px after:origin-left after:scale-x-0 after:bg-white after:transition-transform after:duration-300 hover:after:scale-x-100 focus-visible:outline-2 focus-visible:outline-offset-6 focus-visible:outline-white focus-visible:after:scale-x-100 sm:text-lg lg:text-xl xl:text-2xl"
                   >
@@ -177,7 +265,10 @@ export function PortfolioIntro({ initialMenuOpen = false }: { initialMenuOpen?: 
         </div>
       </aside>
 
-      <div className="absolute top-1/2 right-6 z-20 -translate-y-1/2 sm:right-8 md:right-12 lg:right-16 xl:right-20">
+      <div
+        data-menu-chrome
+        className="absolute top-1/2 right-6 z-20 -translate-y-1/2 sm:right-8 md:right-12 lg:right-16 xl:right-20"
+      >
         <ArrowButton
           open={menuOpen}
           onClick={() => {
@@ -187,10 +278,12 @@ export function PortfolioIntro({ initialMenuOpen = false }: { initialMenuOpen?: 
           continueLabel={messages.navigation.continue}
           openLabel={messages.navigation.openMenu}
           goToAboutLabel={messages.navigation.goToAbout}
+          onNavigate={(event) => navigateFromMenu(event, "/a-propos")}
         />
       </div>
 
       <p
+        data-menu-chrome
         className={`absolute right-6 bottom-6 text-sm tracking-wide transition-opacity delay-300 duration-700 sm:right-8 md:right-12 md:bottom-8 md:text-lg lg:right-16 lg:bottom-12 lg:text-xl ${menuOpen ? "opacity-100" : "opacity-0"}`}
       >
         {messages.brand.signature}

@@ -30,6 +30,111 @@
     "menuBackgroundAlt": "Marie Daviaux's graphic design projects arranged on a wooden table",
     "aboutPortraitAlt": "Marie Daviaux enjoying a glass of champagne"
   },
+  "graphicDesign": {
+    "title": "Graphic design",
+    "projectNavigation": "Browse graphic design projects",
+    "galleryLabel": "Project gallery",
+    "projects": [
+      {
+        "subtitle": "CHAMPAGNE HURET COLAS",
+        "paragraphs": [
+          "Creation of Champagne Huret Colas’ visual identity, designed to express the House’s distinctive positioning. A project focused on typography, line and balance, shaping a visual world that feels modern, refined and distinctive."
+        ],
+        "imageAlts": [
+          ["bottle with black label", "bottle with white and blue label", "embossed vintage detail"],
+          ["black card with monogram", "bottle held between two hands", "embossed monogram"]
+        ]
+      },
+      {
+        "subtitle": "CHAMPAGNE EMELISE MENETRIER",
+        "paragraphs": [
+          "Creation of Champagne Emelise Menetrier’s visual world. An art direction inspired by The Little Prince, telling a gentle and poetic story.",
+          "The project also extends into animation, bringing this world to life through movement on the House’s website."
+        ],
+        "imageAlts": [
+          ["illustrated champagne box", "original watercolour", "second view of the illustrated box"],
+          ["illustration detail", "complete box range", "website adaptation"]
+        ]
+      },
+      {
+        "subtitle": "PERSONAL PROJECT",
+        "paragraphs": [
+          "Creation of an original illustration for a wine bag designed to carry an opened or unopened bottle. An elegant and approachable visual world adapted across several formats. The signature “take happiness with you” is intended primarily for use outside France in accordance with the Évin law."
+        ],
+        "imageAlts": [
+          ["white illustration on burgundy", "wine bag being carried", "illustration sketch"],
+          ["illustrated coaster", "wine bag filled with flowers", "illustration printed on a T-shirt"]
+        ]
+      },
+      {
+        "subtitle": "CHAMPAGNE VADIN PLATEAU",
+        "paragraphs": [
+          "An illustration proposal for the Coteaux Champenois Vadin Plateau label, inspired by a botanical world. Meticulous drawing conveys a thoughtful approach to viticulture, attentive to the living world, and gives the cuvée a sensitive, natural and elegant identity."
+        ],
+        "imageAlts": [
+          ["botanical drawing on a tablet", "Coteaux Champenois bottle", "botanical illustration detail"],
+          ["bottle neck label", "printed label laid flat", "label detail on the bottle"]
+        ]
+      },
+      {
+        "subtitle": "CHAMPAGNE ADAM MEREAUX",
+        "paragraphs": [
+          "Creation of the packaging for Champagne Adam Mereaux’s 2018 vintage 100% Chardonnay cuvée. The design focuses on materiality, combining embossing with micro-perforated hot foil for a textured, almost leather-like result. An approach designed to reveal the wine’s richness while asserting a strong and tactile visual identity."
+        ],
+        "imageAlts": [
+          ["bottle in a dark setting", "label viewed at an angle", "rolls of labels"],
+          ["monogram and label detail", "bottle carried in the street", "micro-perforated foil detail"]
+        ]
+      },
+      {
+        "subtitle": "CHAMPAGNE-INSPIRED ILLUSTRATIONS",
+        "paragraphs": [
+          "A collection of illustrations exploring the world of champagne through different styles and applications. Some began as personal pieces, while others were created for communication materials, covers and product design."
+        ],
+        "imageAlts": [
+          ["Make life sparkle illustration", "Full glass illustration", "Champagne illustration"],
+          ["More bubbles please illustration", "Always afloat illustration", "champagne glass composition"]
+        ]
+      }
+    ]
+  },
+  "communication": {
+    "title": "Communication\n& Marketing",
+    "projectNavigation": "Browse communication and marketing projects",
+    "galleryLabel": "Project gallery",
+    "projects": [
+      {
+        "subtitle": "LAUNCH - 2025 HARVEST COLLECTION",
+        "paragraphs": [
+          "Management of the 2025 Harvest collection launch, from product selection through to market release. Delivery of sales support materials (website, brochure, samples, sales kit and editorial calendar) and organisation of a launch event in the form of a fashion show, with on-site sales and activities. Participant feedback was extremely positive."
+        ],
+        "imageAlts": [
+          ["Love is in this verre tote bag", "CP Création pastel water bottles", "black flasks on a slice of wood"],
+          ["CP Création candle on a wooden plinth", "cork USB keys", "blue Les Vendanges drawstring bag"]
+        ]
+      },
+      {
+        "subtitle": "LAUNCH - 2025 CHRISTMAS COLLECTION",
+        "paragraphs": [
+          "Launch of the 2025 Christmas collection, from product definition to the overall art direction based on the concept ‘What if Father Christmas were a winegrower?’. Several clients took part in the photo shoot. Creation of a dedicated event: a dinner in a fully staged venue. A project designed as a complete experience."
+        ],
+        "imageAlts": [
+          ["Christmas portrait with a bottle and a dog", "stacked Christmas candles", "black flask presented with a white glove"],
+          ["black gift box presented on a white glove", "Christmas portrait on a barrel", "Christmas candle unveiled under a cloche"]
+        ]
+      },
+      {
+        "subtitle": "SOCIAL MEDIA MANAGEMENT",
+        "paragraphs": [
+          "Social media management showcasing client projects and catalogue products. Definition of an editorial calendar (two posts per week), support during photo shoots, AI prompt expertise and photo retouching. In one year, the agency’s Instagram community doubled organically."
+        ],
+        "imageAlts": [
+          ["Goutte de Simmonet bottle held between two hands", "Vadin Plateau bottle in a mineral setting", "champagne and glass gift set"],
+          ["Champagne Moineaux bottle staged with a watch", "series of small black and gold pots", "Cœur d’Oger bottle in a white setting"]
+        ]
+      }
+    ]
+  },
   "about": {
     "title": "About me",
     "text": "Rooted in the world of champagne, I work at the intersection of communication, creation and marketing, with an approach that is both strategic and operational. I enjoy bringing meaning to projects and creating memorable experiences. Today, I want to put this vision at the service of the wine industry by developing useful, tangible projects that meet its current expectations.",
@@ -97,5 +202,10 @@
         }
       ]
     }
+  },
+  "contact": {
+    "title": "Contact",
+    "thankYou": "Thank you",
+    "email": "marie.meyer1801@gmail.com"
   }
 }
