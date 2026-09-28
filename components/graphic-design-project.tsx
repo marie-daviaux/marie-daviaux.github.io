@@ -115,6 +115,11 @@ export function GraphicDesignProjectPage({ projectIndex }: { projectIndex: numbe
       return;
     }
 
+    if (window.matchMedia("(max-width: 1023px)").matches) {
+      navigate(nextHref, "brown");
+      return;
+    }
+
     const destinationIndex = activeIndex + 1;
 
     if (destinationIndex >= graphicDesignProjects.length) {
@@ -221,9 +226,43 @@ export function GraphicDesignProjectPage({ projectIndex }: { projectIndex: numbe
       </section>
 
       <section
+        aria-label={`${messages.graphicDesign.galleryLabel} ${content.subtitle}`}
+        className="relative z-10 grid grid-cols-2 items-start gap-4 px-4 pb-10 sm:gap-5 sm:px-6 lg:hidden"
+      >
+        {graphicDesignProjects[activeIndex].columns.map((column, columnIndex) => (
+          <div
+            key={columnIndex}
+            className={`flex flex-col gap-4 sm:gap-5 ${columnIndex === 0 ? "-mt-8" : "-mt-14"}`}
+          >
+            {column.map((filename, imageIndex) => {
+              const isIllustrationCard =
+                graphicDesignProjects[activeIndex].slug === "take-happiness" &&
+                filename === "illustration-blanche.png";
+
+              return (
+                <div
+                  key={`${filename}-${imageIndex}`}
+                  className={`relative shrink-0 overflow-hidden rounded-3xl ${frameClasses[columnIndex][imageIndex]} ${isIllustrationCard ? "bg-[#603633]" : ""}`}
+                >
+                  <Image
+                    src={`/design-graphique/${graphicDesignProjects[activeIndex].slug}/${filename}`}
+                    alt={`${content.subtitle} — ${content.imageAlts[columnIndex][imageIndex]}`}
+                    fill
+                    priority={imageIndex === 0}
+                    sizes="46vw"
+                    className={isIllustrationCard ? "object-contain p-6 sm:p-12" : "object-cover"}
+                  />
+                </div>
+              );
+            })}
+          </div>
+        ))}
+      </section>
+
+      <section
         ref={galleryViewportRef}
         aria-label={`${messages.graphicDesign.galleryLabel} ${content.subtitle}`}
-        className="invisible relative z-10 grid h-svh grid-cols-2 gap-4 overflow-hidden px-4 opacity-0 sm:gap-5 sm:px-6 lg:gap-5 lg:pr-7 lg:pl-0"
+        className="invisible relative z-10 hidden h-svh grid-cols-2 gap-5 overflow-hidden pr-7 pl-0 opacity-0 lg:grid"
       >
         {[0, 1].map((columnIndex) => (
           <div
