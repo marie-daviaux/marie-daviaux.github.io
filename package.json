@@ -4,6 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "admin:dev": "npm --prefix admin run dev",
+    "admin:build": "npm --prefix admin run build",
+    "admin:lint": "npm --prefix admin run lint",
     "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint ."

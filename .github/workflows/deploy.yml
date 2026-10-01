@@ -31,11 +31,26 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Install admin dependencies
+        run: npm ci --prefix admin
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
       - name: Build with Next.js
         run: npm run build
+        env:
+          SUPABASE_URL: ${{ secrets.MARIE_SUPABASE_URL }}
+          SUPABASE_PUBLISHABLE_KEY: ${{ secrets.MARIE_SUPABASE_PUBLISHABLE_KEY }}
+
+      - name: Build portfolio admin
+        run: npm run admin:build
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.MARIE_SUPABASE_URL }}
+          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.MARIE_SUPABASE_PUBLISHABLE_KEY }}
+
+      - name: Add admin to the static site
+        run: cp -R admin/dist out/admin
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

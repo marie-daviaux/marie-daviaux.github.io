@@ -8,7 +8,7 @@ import { useGSAP } from "@gsap/react";
 import { CircleArrow } from "@/components/circle-arrow";
 import { ContentsLink } from "@/components/contents-link";
 import { useRouteTransition } from "@/components/route-transition-provider";
-import { graphicDesignProjects } from "@/lib/graphic-design-projects";
+import type { PortfolioProject } from "@/lib/portfolio-data";
 import { getDictionary } from "@/i18n/dictionaries";
 
 const messages = getDictionary();
@@ -20,7 +20,13 @@ const frameClasses = [
 
 gsap.registerPlugin(useGSAP);
 
-export function GraphicDesignProjectPage({ projectIndex }: { projectIndex: number }) {
+export function GraphicDesignProjectPage({
+  projectIndex,
+  projects,
+}: {
+  projectIndex: number;
+  projects: PortfolioProject[];
+}) {
   const { navigate } = useRouteTransition();
   const pageRef = useRef<HTMLElement>(null);
   const textRef = useRef<HTMLElement>(null);
@@ -32,8 +38,8 @@ export function GraphicDesignProjectPage({ projectIndex }: { projectIndex: numbe
   const [activeIndex, setActiveIndex] = useState(projectIndex);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
-  const content = messages.graphicDesign.projects[activeIndex];
-  const nextProject = graphicDesignProjects[activeIndex + 1];
+  const content = projects[activeIndex];
+  const nextProject = projects[activeIndex + 1];
   const nextHref = nextProject
     ? `/design-graphique/${nextProject.slug}`
     : "/communication/vendanges-2025";
@@ -69,7 +75,7 @@ export function GraphicDesignProjectPage({ projectIndex }: { projectIndex: numbe
   useEffect(() => {
     const onPopState = () => {
       const slug = window.location.pathname.split("/").filter(Boolean).at(-1);
-      const index = graphicDesignProjects.findIndex((project) => project.slug === slug);
+      const index = projects.findIndex((project) => project.slug === slug);
 
       if (index === -1) {
         return;
@@ -85,16 +91,16 @@ export function GraphicDesignProjectPage({ projectIndex }: { projectIndex: numbe
 
     window.addEventListener("popstate", onPopState);
     return () => window.removeEventListener("popstate", onPopState);
-  }, []);
+  }, [projects]);
 
   const showProjectText = (index: number) => {
     gsap.killTweensOf(textRef.current);
     activeIndexRef.current = index;
     setActiveIndex(index);
 
-    const nextContent = messages.graphicDesign.projects[index];
-    window.history.pushState({}, "", `/design-graphique/${graphicDesignProjects[index].slug}`);
-    document.title = `${nextContent.subtitle} — ${messages.brand.name}`;
+    const nextContent = projects[index];
+    window.history.pushState({}, "", `/design-graphique/${nextContent.slug}`);
+    document.title = `${nextContent.title} — ${messages.brand.name}`;
 
     gsap.set(textRef.current, { y: -window.innerHeight, autoAlpha: 1 });
     requestAnimationFrame(() => {
@@ -122,7 +128,7 @@ export function GraphicDesignProjectPage({ projectIndex }: { projectIndex: numbe
 
     const destinationIndex = activeIndex + 1;
 
-    if (destinationIndex >= graphicDesignProjects.length) {
+    if (destinationIndex >= projects.length) {
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
         navigate(nextHref, "brown");
         return;
@@ -182,6 +188,14 @@ export function GraphicDesignProjectPage({ projectIndex }: { projectIndex: numbe
       />
       <div className="absolute inset-0 bg-portfolio-deep/10" />
 
+      <ContentsLink
+        cover="brown"
+        className="group absolute top-6 left-6 z-20 flex items-center gap-5 text-sm tracking-wide sm:top-8 sm:left-10 sm:text-base lg:hidden"
+      >
+        <CircleArrow reverse tone="light" />
+        <span>{messages.navigation.backToContents}</span>
+      </ContentsLink>
+
       <section
         ref={textRef}
         className="invisible relative z-10 flex min-h-svh items-center px-6 py-24 opacity-0 sm:px-10 md:px-16 lg:px-20 xl:px-32 2xl:px-60"
@@ -191,7 +205,7 @@ export function GraphicDesignProjectPage({ projectIndex }: { projectIndex: numbe
             {messages.graphicDesign.title}
           </h1>
           <h2 className="mt-6 text-xl leading-tight uppercase sm:text-2xl lg:mt-8 lg:text-3xl">
-            {content.subtitle}
+            {content.title}
           </h2>
 
           <div className="mt-12 max-w-[660px] space-y-8 text-lg leading-relaxed sm:text-xl lg:mt-16 lg:text-2xl">
@@ -202,7 +216,7 @@ export function GraphicDesignProjectPage({ projectIndex }: { projectIndex: numbe
 
           <nav
             aria-label={messages.graphicDesign.projectNavigation}
-            className="mt-12 flex flex-wrap items-center justify-between gap-8 lg:mt-9"
+            className="mt-9 hidden items-center justify-between gap-8 lg:flex"
           >
             <ContentsLink
               cover="brown"
@@ -226,27 +240,27 @@ export function GraphicDesignProjectPage({ projectIndex }: { projectIndex: numbe
       </section>
 
       <section
-        aria-label={`${messages.graphicDesign.galleryLabel} ${content.subtitle}`}
-        className="relative z-10 grid grid-cols-2 items-start gap-4 px-4 pb-10 sm:gap-5 sm:px-6 lg:hidden"
+        aria-label={`${messages.graphicDesign.galleryLabel} ${content.title}`}
+        className="relative z-10 grid grid-cols-2 items-start gap-4 px-4 pb-6 sm:gap-5 sm:px-6 lg:hidden"
       >
-        {graphicDesignProjects[activeIndex].columns.map((column, columnIndex) => (
+        {content.columns.map((column, columnIndex) => (
           <div
             key={columnIndex}
             className={`flex flex-col gap-4 sm:gap-5 ${columnIndex === 0 ? "-mt-8" : "-mt-14"}`}
           >
-            {column.map((filename, imageIndex) => {
+            {column.map((image, imageIndex) => {
               const isIllustrationCard =
-                graphicDesignProjects[activeIndex].slug === "take-happiness" &&
-                filename === "illustration-blanche.png";
+                content.slug === "take-happiness" &&
+                image.url.endsWith("/illustration-blanche.png");
 
               return (
                 <div
-                  key={`${filename}-${imageIndex}`}
-                  className={`relative shrink-0 overflow-hidden rounded-3xl ${frameClasses[columnIndex][imageIndex]} ${isIllustrationCard ? "bg-[#603633]" : ""}`}
+                  key={image.id}
+                  className={`relative shrink-0 overflow-hidden rounded-3xl ${frameClasses[columnIndex][imageIndex % frameClasses[columnIndex].length]} ${isIllustrationCard ? "bg-[#603633]" : ""}`}
                 >
                   <Image
-                    src={`/design-graphique/${graphicDesignProjects[activeIndex].slug}/${filename}`}
-                    alt={`${content.subtitle} — ${content.imageAlts[columnIndex][imageIndex]}`}
+                    src={image.url}
+                    alt={image.altText}
                     fill
                     priority={imageIndex === 0}
                     sizes="46vw"
@@ -259,9 +273,24 @@ export function GraphicDesignProjectPage({ projectIndex }: { projectIndex: numbe
         ))}
       </section>
 
+      <nav
+        aria-label={messages.graphicDesign.projectNavigation}
+        className="relative z-10 flex justify-end px-6 pt-4 pb-16 sm:px-10 lg:hidden"
+      >
+        <Link
+          href={nextHref}
+          onClick={handleNext}
+          aria-disabled={isTransitioning}
+          className="group flex items-center gap-5 text-sm tracking-wide sm:text-base"
+        >
+          <span>{messages.navigation.continue}</span>
+          <CircleArrow tone="light" />
+        </Link>
+      </nav>
+
       <section
         ref={galleryViewportRef}
-        aria-label={`${messages.graphicDesign.galleryLabel} ${content.subtitle}`}
+        aria-label={`${messages.graphicDesign.galleryLabel} ${content.title}`}
         className="invisible relative z-10 hidden h-svh grid-cols-2 gap-5 overflow-hidden pr-7 pl-0 opacity-0 lg:grid"
       >
         {[0, 1].map((columnIndex) => (
@@ -272,8 +301,7 @@ export function GraphicDesignProjectPage({ projectIndex }: { projectIndex: numbe
             }}
             className={`flex flex-col ${columnIndex === 0 ? "-mt-8 lg:-mt-16" : "-mt-14 lg:-mt-28"}`}
           >
-            {graphicDesignProjects.map((galleryProject, galleryProjectIndex) => {
-              const galleryContent = messages.graphicDesign.projects[galleryProjectIndex];
+            {projects.map((galleryProject, galleryProjectIndex) => {
               const column = galleryProject.columns[columnIndex];
 
               return (
@@ -284,19 +312,19 @@ export function GraphicDesignProjectPage({ projectIndex }: { projectIndex: numbe
                   }}
                   className="flex flex-col gap-4 pb-4 sm:gap-5 sm:pb-5"
                 >
-                  {column.map((filename, imageIndex) => {
+                  {column.map((image, imageIndex) => {
                     const isIllustrationCard =
                       galleryProject.slug === "take-happiness" &&
-                      filename === "illustration-blanche.png";
+                      image.url.endsWith("/illustration-blanche.png");
 
                     return (
                       <div
-                        key={`${filename}-${imageIndex}`}
-                        className={`relative shrink-0 overflow-hidden rounded-3xl ${frameClasses[columnIndex][imageIndex]} ${isIllustrationCard ? "bg-[#603633]" : ""}`}
+                        key={image.id}
+                        className={`relative shrink-0 overflow-hidden rounded-3xl ${frameClasses[columnIndex][imageIndex % frameClasses[columnIndex].length]} ${isIllustrationCard ? "bg-[#603633]" : ""}`}
                       >
                         <Image
-                          src={`/design-graphique/${galleryProject.slug}/${filename}`}
-                          alt={`${galleryContent.subtitle} — ${galleryContent.imageAlts[columnIndex][imageIndex]}`}
+                          src={image.url}
+                          alt={image.altText}
                           fill
                           priority={galleryProjectIndex === projectIndex && imageIndex === 0}
                           sizes="(min-width: 1024px) 19vw, 46vw"

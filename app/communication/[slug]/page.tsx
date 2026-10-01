@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CommunicationProjectPage } from "@/components/communication-project";
-import {
-  communicationProjects,
-  getCommunicationProject,
-} from "@/lib/communication-projects";
+import { getPortfolioProjects } from "@/lib/portfolio-data";
 import { getDictionary } from "@/i18n/dictionaries";
 
 const messages = getDictionary();
 
-export function generateStaticParams() {
-  return communicationProjects.map(({ slug }) => ({ slug }));
+export const dynamicParams = false;
+
+export async function generateStaticParams() {
+  const projects = await getPortfolioProjects("communication");
+  return projects.map(({ slug }) => ({ slug }));
 }
 
 export async function generateMetadata({
@@ -19,15 +19,15 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const projectIndex = communicationProjects.findIndex((project) => project.slug === slug);
+  const projects = await getPortfolioProjects("communication");
+  const project = projects.find((item) => item.slug === slug);
 
-  if (projectIndex === -1) {
+  if (!project) {
     return {};
   }
 
-  const project = messages.communication.projects[projectIndex];
   return {
-    title: `${project.subtitle} — ${messages.brand.name}`,
+    title: `${project.title} — ${messages.brand.name}`,
     description: project.paragraphs.join(" "),
   };
 }
@@ -38,12 +38,12 @@ export default async function CommunicationProjectRoute({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const project = getCommunicationProject(slug);
+  const projects = await getPortfolioProjects("communication");
+  const projectIndex = projects.findIndex((project) => project.slug === slug);
 
-  if (!project) {
+  if (projectIndex === -1) {
     notFound();
   }
 
-  const projectIndex = communicationProjects.findIndex((item) => item.slug === slug);
-  return <CommunicationProjectPage projectIndex={projectIndex} />;
+  return <CommunicationProjectPage projectIndex={projectIndex} projects={projects} />;
 }
