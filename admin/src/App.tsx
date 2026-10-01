@@ -5,6 +5,7 @@ import {
   removeCategory,
   removeImage,
   removeProject,
+  requestDeployment,
   saveCategory,
   saveProject,
   setProjectPublished,
@@ -237,10 +238,12 @@ function CategoriesDialog({
   categories,
   onClose,
   onChanged,
+  onDeploy,
 }: {
   categories: Category[]
   onClose: () => void
   onChanged: () => Promise<void>
+  onDeploy: () => Promise<void>
 }) {
   const [editing, setEditing] = useState<Category | null>(null)
   const [name, setName] = useState('')
@@ -262,6 +265,7 @@ function CategoriesDialog({
       setName('')
       setEditing(null)
       await onChanged()
+      await onDeploy()
     } catch (saveError) {
       setError(messageFrom(saveError))
     } finally {
@@ -274,6 +278,7 @@ function CategoriesDialog({
     try {
       await removeCategory(category.id)
       await onChanged()
+      await onDeploy()
     } catch (deleteError) {
       setError(messageFrom(deleteError))
     }
@@ -331,11 +336,13 @@ function ProjectEditor({
   categories,
   onClose,
   onSaved,
+  onDeploy,
 }: {
   project: Project | null
   categories: Category[]
   onClose: () => void
   onSaved: () => Promise<void>
+  onDeploy: () => Promise<void>
 }) {
   const [draft, setDraft] = useState<ProjectDraft>({
     title: project?.title ?? '',
@@ -374,6 +381,7 @@ function ProjectEditor({
       const projectId = await saveProject(project?.id, draft)
       if (files.length) await uploadProjectImages(projectId, files, project?.images.length ?? 0)
       await onSaved()
+      if (project?.is_published || draft.is_published) await onDeploy()
       onClose()
     } catch (saveError) {
       setError(messageFrom(saveError))
@@ -388,6 +396,7 @@ function ProjectEditor({
     try {
       await removeProject(project)
       await onSaved()
+      if (project.is_published) await onDeploy()
       onClose()
     } catch (deleteError) {
       setError(messageFrom(deleteError))
@@ -400,6 +409,7 @@ function ProjectEditor({
     try {
       await removeImage(image)
       await onSaved()
+      if (project?.is_published) await onDeploy()
     } catch (deleteError) {
       setError(messageFrom(deleteError))
     }
@@ -410,6 +420,7 @@ function ProjectEditor({
     try {
       await updateImage(image.id, { alt_text: altText })
       await onSaved()
+      if (project?.is_published) await onDeploy()
     } catch (updateError) {
       setError(messageFrom(updateError))
     }
@@ -593,6 +604,31 @@ function Admin({ user }: { user: User }) {
   const [statusFilter, setStatusFilter] = useState<'all' | 'published' | 'draft'>('all')
   const [editedProjectId, setEditedProjectId] = useState<string | 'new' | null>(null)
   const [showCategories, setShowCategories] = useState(false)
+  const [deploymentNotice, setDeploymentNotice] = useState<{
+    kind: 'loading' | 'success' | 'error'
+    text: string
+  } | null>(null)
+
+  async function queueDeployment() {
+    setDeploymentNotice({ kind: 'loading', text: 'Publication en préparation…' })
+
+    try {
+      await requestDeployment()
+      setDeploymentNotice({
+        kind: 'success',
+        text: 'Publication lancée. Le site sera à jour dans quelques minutes.',
+      })
+      window.setTimeout(() => {
+        setDeploymentNotice((notice) => notice?.kind === 'success' ? null : notice)
+      }, 8000)
+    } catch (deploymentError) {
+      const message = messageFrom(deploymentError)
+      setDeploymentNotice({
+        kind: 'error',
+        text: `Le contenu est enregistré, mais la publication n’a pas démarré : ${message}`,
+      })
+    }
+  }
 
   async function refresh() {
     try {
@@ -633,6 +669,7 @@ function Admin({ user }: { user: User }) {
     try {
       await setProjectPublished(project.id, !project.is_published)
       await refresh()
+      await queueDeployment()
     } catch (publishError) {
       setError(messageFrom(publishError))
     }
@@ -640,6 +677,39 @@ function Admin({ user }: { user: User }) {
 
   return (
     <div className="min-h-screen bg-[#f6f5f2] text-stone-900 lg:grid lg:grid-cols-[15rem_1fr]">
+      {deploymentNotice && (
+        <div
+          className={`fixed bottom-5 left-5 right-5 z-[70] mx-auto max-w-xl rounded-2xl border px-4 py-3 text-sm shadow-xl sm:left-auto sm:right-6 ${
+            deploymentNotice.kind === 'error'
+              ? 'border-red-200 bg-red-50 text-red-800'
+              : deploymentNotice.kind === 'success'
+                ? 'border-emerald-200 bg-emerald-50 text-emerald-800'
+                : 'border-stone-200 bg-white text-stone-700'
+          }`}
+        >
+          <div className="flex items-center gap-3">
+            <span
+              className={`size-2 shrink-0 rounded-full ${
+                deploymentNotice.kind === 'error'
+                  ? 'bg-red-500'
+                  : deploymentNotice.kind === 'success'
+                    ? 'bg-emerald-500'
+                    : 'animate-pulse bg-amber-500'
+              }`}
+            />
+            <span className="flex-1">{deploymentNotice.text}</span>
+            {deploymentNotice.kind !== 'loading' && (
+              <button
+                onClick={() => setDeploymentNotice(null)}
+                aria-label="Fermer"
+                className="rounded-lg p-1 opacity-60 hover:bg-black/5 hover:opacity-100"
+              >
+                <Icon name="close" className="size-4" />
+              </button>
+            )}
+          </div>
+        </div>
+      )}
       <aside className="hidden min-h-screen border-r border-stone-200 bg-white px-4 py-6 lg:fixed lg:inset-y-0 lg:flex lg:w-60 lg:flex-col">
         <div className="flex items-center gap-3 px-2">
           <span className="grid size-10 place-items-center rounded-xl bg-stone-950 font-semibold text-white">P</span>
@@ -719,6 +789,15 @@ function Admin({ user }: { user: User }) {
             </div>
             <div className="flex items-center gap-2">
               <button onClick={() => setShowCategories(true)} className="rounded-xl border border-stone-200 bg-white px-3 py-2.5 text-sm font-medium text-stone-700 lg:hidden">Catégories</button>
+              <button
+                onClick={() => void queueDeployment()}
+                disabled={deploymentNotice?.kind === 'loading'}
+                className="flex items-center gap-2 rounded-xl border border-stone-200 bg-white px-3 py-2.5 text-sm font-medium text-stone-700 hover:bg-stone-50 disabled:cursor-wait disabled:opacity-50"
+              >
+                <Icon name="upload" className="size-4" />
+                <span className="hidden sm:inline">Publier le site</span>
+                <span className="sm:hidden">Publier</span>
+              </button>
               <button onClick={() => setEditedProjectId('new')} className="flex items-center gap-2 rounded-xl bg-stone-950 px-4 py-2.5 text-sm font-medium text-white hover:bg-stone-800">
                 <Icon name="plus" className="size-4" /> <span className="hidden sm:inline">Nouveau projet</span><span className="sm:hidden">Nouveau</span>
               </button>
@@ -782,9 +861,17 @@ function Admin({ user }: { user: User }) {
           categories={categories}
           onClose={() => setEditedProjectId(null)}
           onSaved={refresh}
+          onDeploy={queueDeployment}
         />
       )}
-      {showCategories && <CategoriesDialog categories={categories} onClose={() => setShowCategories(false)} onChanged={refresh} />}
+      {showCategories && (
+        <CategoriesDialog
+          categories={categories}
+          onClose={() => setShowCategories(false)}
+          onChanged={refresh}
+          onDeploy={queueDeployment}
+        />
+      )}
     </div>
   )
 }

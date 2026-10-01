@@ -161,3 +161,12 @@ export async function removeImage(image: ProjectImage) {
   const { error } = await api.from('project_images').delete().eq('id', image.id)
   if (error) throw error
 }
+
+export async function requestDeployment() {
+  const { data, error } = await client().functions.invoke('deploy-portfolio', {
+    body: { requested_at: new Date().toISOString() },
+  })
+
+  if (error) throw error
+  return data as { queued: boolean; run_url?: string }
+}

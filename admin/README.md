@@ -40,6 +40,21 @@ Le résultat statique est généré dans `dist/` avec les chemins d’assets pr�
 
 Les visiteurs anonymes ne peuvent lire que les projets publiés. Les modifications sont réservées aux comptes authentifiés grâce aux règles RLS.
 
+## Publication automatique du portfolio
+
+L’admin appelle la fonction Supabase `deploy-portfolio` après toute modification qui affecte le site public. Cette fonction déclenche le workflow GitHub Pages sans exposer le jeton GitHub au navigateur.
+
+1. Déployer `supabase/functions/deploy-portfolio/index.ts` dans Supabase avec le nom `deploy-portfolio` et la vérification JWT activée.
+2. Ajouter les secrets de fonction suivants dans Supabase :
+   - `GITHUB_DEPLOY_TOKEN` : jeton GitHub finement restreint au dépôt et à la permission Actions en écriture ;
+   - `GITHUB_OWNER` : propriétaire du dépôt ;
+   - `GITHUB_REPOSITORY` : nom du dépôt sans `.git` ;
+   - `GITHUB_WORKFLOW` : nom du fichier de workflow, par exemple `deploy.yml` ;
+   - `GITHUB_REF` : branche à publier, facultative (`main` par défaut).
+3. Le workflow ciblé doit accepter l’événement `workflow_dispatch`.
+
+Le jeton GitHub ne doit jamais être ajouté à un fichier `.env` préfixé par `VITE_` ni stocké dans les secrets GitHub utilisés par le build de l’admin.
+
 ## Migration initiale de Marie
 
 La migration importe les 9 projets et 54 images déjà présents dans le dépôt. Elle peut être relancée sans créer de doublons.
