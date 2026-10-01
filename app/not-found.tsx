@@ -10,11 +10,8 @@ export default function NotFound() {
         <p className="text-xs font-medium uppercase tracking-[0.28em] text-portfolio-muted/70">
           Portfolio · Marie Daviaux
         </p>
-        <p className="mt-14 font-display text-8xl leading-none text-portfolio-title/12 sm:text-9xl">
-          404
-        </p>
-        <h1 className="-mt-5 max-w-2xl font-display text-5xl leading-[0.98] text-portfolio-title sm:-mt-8 sm:text-7xl">
-          Cette page arrive.
+        <h1 className="mt-14 max-w-3xl font-display text-5xl leading-[0.98] text-portfolio-title sm:text-7xl">
+          Mise à jour en cours.
         </h1>
         <p className="mt-7 max-w-xl text-base leading-7 text-portfolio-muted sm:text-lg sm:leading-8">
           Le portfolio est peut-être en cours de mise à jour. La page va être vérifiée à nouveau automatiquement.
