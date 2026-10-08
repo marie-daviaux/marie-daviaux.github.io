@@ -1,0 +1,35 @@
+name: Keep Supabase active
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/keep-supabase-awake.yml
+  schedule:
+    - cron: "23 2,10,18 * * *"
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  ping-database:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Query the public portfolio data
+        env:
+          SUPABASE_URL: ${{ secrets.MARIE_SUPABASE_URL }}
+          SUPABASE_PUBLISHABLE_KEY: ${{ secrets.MARIE_SUPABASE_PUBLISHABLE_KEY }}
+        run: |
+          curl \
+            --fail \
+            --silent \
+            --show-error \
+            --retry 3 \
+            --retry-all-errors \
+            --max-time 30 \
+            --output /dev/null \
+            "${SUPABASE_URL%/}/rest/v1/categories?select=id&limit=1" \
+            --header "apikey: ${SUPABASE_PUBLISHABLE_KEY}" \
+            --header "Authorization: Bearer ${SUPABASE_PUBLISHABLE_KEY}"
